@@ -1,0 +1,19 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "{{ .Site.Title }}",
+    "home_page_url": "{{ .Site.BaseURL }}",
+    "feed_url": "{{ .Permalink }}",
+    "posts":
+    {{ $list := .Data.Pages -}}
+      {{ $length := (len $list) -}}
+      {
+        "title" : {{ .Title | jsonify }},
+        "posts" : {{- $.Scratch.Add "searchindex" slice -}}
+        {{- range $index, $element := (where .Site.Pages "Kind" "page") -}}
+            {{- $.Scratch.Add "searchindex" (dict "id" $index "title" $element.Title "uri" $element.Permalink "tags" $element.Params.tags "section" $element.Section "summary" $element.Summary "year" ($element.Date.Format "2006")) | -}}
+        {{- end -}}
+        {{- $.Scratch.Get "searchindex" | jsonify -}}
+      }
+   
+    
+}

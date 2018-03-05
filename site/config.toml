@@ -1,3 +1,16 @@
 baseurl = "/"
 languageCode = "en-us"
 title = "Homepage"
+[mediaTypes]
+  [mediaTypes."application/json"]
+  suffix = "json"
+  [mediaTypes."text/html"]
+  suffix = "html"
+[outputFormats.JsonFormat]
+mediaType = "application/json"
+baseName = "index.json"
+isPlainText = true
+protocol = "http://"
+[outputs]
+  home = ["HTML", "JSON"]
+  page = ["HTML", "JSON"]
